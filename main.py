@@ -10,4 +10,6 @@ log_type = config.get_log_type()
 
 
 log_generator = LogGeneratorFactory.get_log_generator(log_type)
-log_generator.generate()
+log1 = log_generator.generate()
+
+print("@@ : ", log1)
