@@ -94,8 +94,6 @@ class LeefGenerator(CommonGenerator):
             key = b.get(StandardLogInfo.LOG_INFO_KEY_NAME, "")
             value = self.get_random_value(b.get(StandardLogInfo.LOG_INFO_KEY_VALUE, []))
 
-            print("key : ", key)
-            print("value : ", value)
             if i > 0:
                 body_string += self.delimiter
 
