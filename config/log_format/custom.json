@@ -1,11 +1,12 @@
 {
-
-  "include_field_header": "True",
+  "include_syslog_header": true,
+  "include_field_header": true,
   "header_separator": "--",
 
   "delimiter": "`",
   "header": "#",
   "footer": "!",
+
   "fields": [
     {
       "name": "time_stamp",

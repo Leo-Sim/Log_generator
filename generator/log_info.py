@@ -23,4 +23,7 @@ class StandardLogInfo:
     LOG_INFO_KEY_VERSION = "version"
     LOG_INFO_KEY_DELIMITER = "delimiter"
 
+    LOG_INFO_SEVERITY = "severity"
+
+
 

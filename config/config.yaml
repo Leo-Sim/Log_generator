@@ -1,18 +1,15 @@
 
 # custom, leef, cef
-log-type: custom
+log-type: leef
 
 
 
 
 
 transfer:
-  #  batch and realtime. if batch is selected,  interval and count should be defined.
-  #  In realtime mode, max number of logs per second can be defined with max_log_per_sec
-  mode: batch
-  max-log-per-sec: 1000
+
   # transfer interval (second)
   interval: 5
   #  number of logs
-  count: 100
+  count: 2
   target-servers: localhost:15002
