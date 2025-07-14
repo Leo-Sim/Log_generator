@@ -4,25 +4,28 @@ This module generates sample logs and supports sending them to external servers.
 
 Currently supported log formats:
 - LEEF (Log Event Extended Format)
-- CEF (Common Event Format)
 - Custom-defined formats
 
 
+- - CEF (Common Event Format) will be added to this project
 
----
 
-### 🔧 `config.yaml`
-
-Defines global settings for log generation and transmission.
+--
+### 🔧 Top-level Fields
 
 | Field | Description | Example |
 |-------|-------------|---------|
-| `log_format_type` | Type of log format to use (e.g., leef, custom, cef) | `"leef"` |
-| `log_format_path` | Path to the log format definition JSON file | `"./config/leef.json"` |
-| `generate_mode` | Log generation mode: `"batch"` or `"realtime"` | `"batch"` |
-| `generate_num` | Number of logs per batch (if in batch mode) | `10` |
-| `generate_interval` | Interval in seconds between transmissions | `5` |
-| `target_servers` | Comma-separated list of IP and port targets | `"127.0.0.1:5140,192.168.1.100:1514"` |
+| `log-type` | The format of logs to generate. Supported values: `custom`, `leef`, `cef`. | `"leef"` |
+
+---
+
+### 🔁 `transfer` Section
+
+| Field | Description | Example |
+|-------|-------------|---------|
+| `interval` | Time interval (in seconds) between each batch transmission. | `5` |
+| `count` | Number of logs to generate per interval. | `2` |
+| `target-servers` |  list of IP:PORT pairs to which logs will be sent. | `"127.0.0.1:15002,11.12.13.22:14028"` |
 
 ---
 
@@ -43,23 +46,43 @@ Defines the structure and content for a custom log format.
 
 ---
 
-### 📄 `leef.json`
+### 🔧 Top-level Fields
 
-Defines the structure for LEEF-formatted logs (Log Event Extended Format).
-
-| Field | Description |
-|-------|-------------|
-| `version` | LEEF version (e.g., `"2.0"`) |
-| `vendor` | Product vendor name | `"MyCompany"` |
-| `product` | Product name | `"LogGenerator"` |
-| `product_version` | Version of the product | `"1.0"` |
-| `event_id` | Event type ID or name | `"login_attempt"` |
-| `delimiter` | Delimiter between key-value fields | `"\t"` |
-| `fields` | Key-value field definitions for the log |
-| → `name` | Field name (e.g., `"src"`, `"dst"`, `"protocol"`) |
-| → `value` | List of possible values for that field |
+| Field | Description | Example |
+|-------|-------------|---------|
+| `version` | LEEF format version. | `"2.0"` |
+| `delimiter` | Delimiter used between key-value pairs in the log body. | `"^"` |
 
 ---
+
+### 🧩 `header` (LEEF Header Fields)
+
+This is a list of field definitions used to build the LEEF log prefix:
+
+| Name | Description | Example Values |
+|------|-------------|----------------|
+| `vendor` | Vendor or manufacturer name. | `"ASecurity"`, `"AhnLab"` |
+| `product` | Product name that generated the log. | `"SIEM"`, `"ThreatDetector"` |
+| `product_version` | Version of the logging product. | `"1.0.0"`, `"2.1.2"` |
+| `event_id` | Event ID or type identifier. | `"2020"`, `"3012"` |
+
+
+
+---
+
+### 🗂 `fields` (Log Body Fields)
+
+This section defines the key-value data that follows the LEEF header.
+
+| Name | Description | Example Values |
+|------|-------------|----------------|
+| `name` | Name of the field (e.g., `"timestamp"`, `"sip"`, `"sport"`) |
+| `value` | List of possible values to randomly choose from |
+
+Each field’s `value` array is used to randomly generate realistic variations of logs.
+
+---
+
 
 📝 **Tip**: You can switch between `leef.json`, `custom.json`, or other formats by changing `log_format_type` and `log_format_path` in `config.yaml`.
 
