@@ -50,3 +50,6 @@ class Config:
 
     def get_transfer_max_log_per_sec(self):
         return self.get_transfer().get("max-log-per-sec")
+
+    def get_include_syslog_header(self):
+        return self.get_transfer().get("include-syslog-header")

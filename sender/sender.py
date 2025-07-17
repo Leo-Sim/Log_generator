@@ -10,10 +10,10 @@ from datetime import datetime
 
 class LogSender:
 
-    def __init__(self, log_generator: CommonGenerator, generate_interval, generate_num, target_servers):
+    def __init__(self, log_generator: CommonGenerator, generate_interval, generate_num, target_servers, include_syslog_header):
         self.log_generator = log_generator
 
-
+        self.include_syslog_header = include_syslog_header
         self.generate_interval = generate_interval
         self.generate_num = generate_num
         self.target_servers = self._get_target_server_info(target_servers)
@@ -68,7 +68,9 @@ class LogSender:
 
         log_list = []
 
-        syslog_header = self.create_syslog_header()
+        syslog_header = ""
+        if self.include_syslog_header:
+            syslog_header = self.create_syslog_header()
 
         for i in range(self.generate_num):
             log_body = self.log_generator.generate()

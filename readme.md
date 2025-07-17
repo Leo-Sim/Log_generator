@@ -26,11 +26,12 @@ Currently supported log formats:
 
 ###  `transfer` Section
 
-| Field | Description | Example |
-|-------|-------------|---------|
-| `interval` | Time interval (in seconds) between each batch transmission. | `5` |
-| `count` | Number of logs to generate per interval. | `2` |
-| `target-servers` |  list of IP:PORT pairs to which logs will be sent. | `"127.0.0.1:15002,11.12.13.22:14028"` |
+| Field                   | Description | Example |
+|-------------------------|-------------|---------|
+| `interval`              | Time interval (in seconds) between each batch transmission. | `5` |
+| `count`                 | Number of logs to generate per interval. | `2` |
+| `target-servers`        |  list of IP:PORT pairs to which logs will be sent. | `"127.0.0.1:15002,11.12.13.22:14028"` |
+| `include-syslog-header` | Whether to prepend a syslog-style header (`<PRI>timestamp hostname app[PID]:`) before each log entry. | `true` or `false` |
 
 ---
 

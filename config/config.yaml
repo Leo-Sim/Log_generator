@@ -3,10 +3,9 @@
 log-type: leef
 
 
-
-
-
 transfer:
+
+  include-syslog-header: true
 
   # transfer interval (second)
   interval: 5
