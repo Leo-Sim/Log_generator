@@ -18,6 +18,9 @@ class LogGeneratorFactory:
         elif log_type == StandardLogInfo.LOG_TYPE_CUSTOM:
             return CustomGenerator()
 
+        elif log_type == StandardLogInfo.LOG_TYPE_CEF:
+            return CefGenerator()
+
 
 
 
@@ -78,6 +81,68 @@ class CommonGenerator:
         :return:
         """
         pass
+
+class CefGenerator(CommonGenerator):
+
+    def __init__(self):
+        super().__init__()
+        self.format_dir_path = os.path.join(self.base_dir_path, "..", "config", "log_format",
+                                            StandardLogInfo.LOG_TYPE_CEF + ".json")
+
+        with open(self.format_dir_path, "r") as file:
+            self.log_format = json.load(file)
+
+
+    def _make_log_body(self, body):
+
+        body_string = ""
+
+        for i, b in enumerate(body):
+            if i != 0:
+                body_string += " "
+
+            key = b.get(StandardLogInfo.LOG_INFO_KEY_NAME, "")
+            value = self.get_random_value(b.get(StandardLogInfo.LOG_INFO_KEY_VALUE, []))
+
+            body_string += key + "=" + value
+
+        return body_string
+
+
+    def _make_log_header(self, header):
+        d = "|"
+        prefix = "CEF:"
+
+        version = vendor = product = product_version = signature = _name = severity = ""
+
+        for h in header:
+            name = h.get(StandardLogInfo.LOG_INFO_KEY_NAME, "")
+            if name == StandardLogInfo.HEADER_VERSION:
+                version = self.get_random_value(h.get(StandardLogInfo.LOG_INFO_KEY_VALUE, []))
+            elif name == StandardLogInfo.HEADER_VENDOR:
+                vendor = self.get_random_value(h.get(StandardLogInfo.LOG_INFO_KEY_VALUE, []))
+            elif name == StandardLogInfo.HEADER_PRODUCT:
+                product = self.get_random_value(h.get(StandardLogInfo.LOG_INFO_KEY_VALUE, []))
+            elif name == StandardLogInfo.HEADER_PRODUCT_VERSION:
+                product_version = self.get_random_value(h.get(StandardLogInfo.LOG_INFO_KEY_VALUE, []))
+            elif name == StandardLogInfo.HEADER_SIGNATURE:
+                signature = self.get_random_value(h.get(StandardLogInfo.LOG_INFO_KEY_VALUE, []))
+            elif name == StandardLogInfo.HEADER_NAME:
+                _name = self.get_random_value(h.get(StandardLogInfo.LOG_INFO_KEY_VALUE, []))
+            elif name == StandardLogInfo.HEADER_SEVERITY:
+                severity = self.get_random_value(h.get(StandardLogInfo.LOG_INFO_KEY_VALUE, []))
+
+            header_string = (
+                    prefix + version + d + vendor + d + product + d + product_version + d
+                    + signature + d + _name + d + severity + d
+            )
+
+        return header_string
+
+
+    def _make_log_footer(self, footer):
+        return footer
+
 
 class CustomGenerator(CommonGenerator):
 
@@ -180,13 +245,13 @@ class LeefGenerator(CommonGenerator):
 
         for h in header:
             name = h.get(StandardLogInfo.LOG_INFO_KEY_NAME, "")
-            if name == StandardLogInfo.HEADER_LEEF_VENDOR:
+            if name == StandardLogInfo.HEADER_VENDOR:
                 vendor = self.get_random_value(h.get(StandardLogInfo.LOG_INFO_KEY_VALUE, []))
-            elif name == StandardLogInfo.HEADER_LEEF_PRODUCT:
+            elif name == StandardLogInfo.HEADER_PRODUCT:
                 product = self.get_random_value(h.get(StandardLogInfo.LOG_INFO_KEY_VALUE, []))
-            elif name == StandardLogInfo.HEADER_LEEF_PRODUCT_VERSION:
+            elif name == StandardLogInfo.HEADER_PRODUCT_VERSION:
                 product_version = self.get_random_value(h.get(StandardLogInfo.LOG_INFO_KEY_VALUE, []))
-            elif name == StandardLogInfo.HEADER_LEEF_EVENT_ID:
+            elif name == StandardLogInfo.HEADER_EVENT_ID:
                 event_id = self.get_random_value(h.get(StandardLogInfo.LOG_INFO_KEY_VALUE, []))
 
         header_string = prefix + self.leef_version + d + vendor + d + product + d + product_version + d + event_id + d

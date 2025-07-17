@@ -11,11 +11,14 @@ class StandardLogInfo:
     LOG_PART_BODY = "fields"
 
     # Header info
-    HEADER_LEEF_VERSION = "version"
-    HEADER_LEEF_VENDOR = "vendor"
-    HEADER_LEEF_PRODUCT = "product"
-    HEADER_LEEF_PRODUCT_VERSION = "product_version"
-    HEADER_LEEF_EVENT_ID = "event_id"
+    HEADER_VERSION = "version"
+    HEADER_VENDOR = "vendor"
+    HEADER_PRODUCT = "product"
+    HEADER_PRODUCT_VERSION = "product_version"
+    HEADER_EVENT_ID = "event_id"
+    HEADER_SIGNATURE = "signature"
+    HEADER_NAME = "name"
+    HEADER_SEVERITY = "severity"
 
     # Name of keys
     LOG_INFO_KEY_NAME = "name"

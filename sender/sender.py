@@ -46,6 +46,7 @@ class LogSender:
         while True:
             log_list = self.create_log()
 
+            print(log_list)
 
             for target_server in self.target_servers:
                 ip = target_server["ip"]

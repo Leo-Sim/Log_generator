@@ -1,0 +1,48 @@
+{
+  "version": "2.0",
+  "delimiter": "^",
+  "header": [
+    {
+      "name": "version",
+      "value": ["1"]
+    },{
+      "name": "vendor",
+      "value": ["ASecurity", "AhnLab", "Secuve", "ZTech"]
+    }, {
+      "name": "product",
+      "value": ["SIEM", "ThreatDetector"]
+    }, {
+      "name": "product_version",
+      "value": ["1.0.0", "2.1.2", "3.0.1"]
+    }, {
+      "name": "signature",
+      "value": ["2020", "3012", "4017", "3574", "4353"]
+    }, {
+      "name": "name",
+      "value": ["Suspicious outbound connection attempt", "Firewall policy violation", "Malware detected on endpoint", "User login failed"]
+    }, {
+      "name": "severity",
+      "value": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    }
+
+  ],
+  "fields": [
+    {
+      "name": "rt",
+      "value": ["2019-02-05 16:20:22", "2019-03-14 08:45:17","2019-07-22 13:10:58","2019-01-30 23:55:42","2019-12-05 04:22:11","2019-06-18 17:39:05","2019-10-09 00:01:33","2019-05-27 15:07:49","2019-11-02 10:29:21","2019-08-16 19:44:36","2019-02-25 06:13:08"
+]
+    }, {
+      "name": "sip",
+      "value": ["1.2.1.2", "121.31.67.20", "100.20.100.45"]
+    }, {
+      "name": "dip",
+      "value": ["25.67.111.89", "68.100.127.245", "211.20.108.168"]
+    }, {
+      "name": "sport",
+      "value": ["2055", "8867", "9999", "12100"]
+    }, {
+      "name": "dport",
+      "value": ["1021", "5015", "10002", "11001"]
+    }
+  ]
+}
